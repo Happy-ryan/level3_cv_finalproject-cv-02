@@ -1,0 +1,8 @@
+fastapi==0.100.1
+uvicorn==0.23.2
+torch==1.9.1
+mobile-sam @ git+https://github.com/ChaoningZhang/MobileSAM.git
+numpy==1.25.2
+matplotlib==3.5.1
+timm==0.9.12
+python-multipart==0.0.6
