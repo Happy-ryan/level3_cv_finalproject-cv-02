@@ -1,3 +1,5 @@
+import uvicorn
+
 from fastapi import FastAPI, UploadFile, File, Form, Request
 from fastapi.param_functions import Depends
 from pydantic import BaseModel, Field
@@ -6,14 +8,14 @@ from uuid import UUID, uuid4
 from typing import List, Union, Optional, Dict, Any
 
 import numpy as np
-import torch
 
 import os
 import os.path as osp
 import uuid
 from datetime import datetime
-from app.predictor import seg, save_masked_image
-from segment_anything import sam_model_registry, SamPredictor
+from predictor import seg, save_masked_image
+
+from mobile_sam import sam_model_registry, SamPredictor
 from PIL import Image
 
 import time
@@ -42,7 +44,7 @@ async def upload_file(file: UploadFile = File(...)):
         print("연결완료")
         print(file.filename, "aaaa")
         contents = await file.read()
-        img_root = "/opt/ml/seg_api/my-app/public/images/"    ### 나중에 상대경로로 수정
+        img_root = "/project/storage/seg/images"    ### 나중에 상대경로로 수정
         with open(img_root + file.filename, "wb") as f:
             f.write(contents)
         print("file name",  file.filename)
@@ -52,9 +54,9 @@ async def upload_file(file: UploadFile = File(...)):
         return {"error": str(e)}
 
 def model_define():
-    sam_checkpoint = './weights/sam_vit_h_4b8939.pth'
-    model_type = "vit_h"
-    device = "cuda"
+    sam_checkpoint = '/project/storage/model/mobile_sam.pt'
+    model_type = "vit_t"
+    device = "cpu"
     sam = sam_model_registry[model_type](checkpoint=sam_checkpoint)
     sam.to(device=device)
     predictor = SamPredictor(sam)
@@ -84,8 +86,8 @@ async def upload_file(x:str, y:str, img:UploadFile = File(...)):
     y = int(y)
     
     print(x,y,type(img))
-    input_root = "/opt/ml/seg_api/app/input" #"./app/input"
-    save_root = "./app/seg_db"
+    input_root = "/project/storage/seg/input" #"./app/input"
+    save_root = "/project/storage/seg/seg_db"
     ### byte decode
     file_content = await img.read()  
     im = Image.open(io.BytesIO(file_content))
@@ -130,3 +132,6 @@ async def upload_file(x:str, y:str, img:UploadFile = File(...)):
 @app.get("/")
 def main():
     return  12
+
+if __name__ == "__main__":
+    uvicorn.run("main:app", port=30006, host="0.0.0.0", reload=False)
