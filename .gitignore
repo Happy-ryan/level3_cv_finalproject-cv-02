@@ -8,3 +8,7 @@ frontend_dev/accounts.yaml
 frontend_dev/api_address.yaml
 
 # backend
+seg_api/app/input
+seg_api/app/seg_db
+storage
+retrieval_api/config.yaml

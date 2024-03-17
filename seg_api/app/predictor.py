@@ -3,7 +3,6 @@ import torch
 import matplotlib.pyplot as plt
 #import cv2
 import sys
-from segment_anything import sam_model_registry, SamPredictor
 from PIL import Image
 import os
 import time

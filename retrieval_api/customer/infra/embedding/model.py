@@ -1,4 +1,3 @@
-from fashion_clip.fashion_clip import FashionCLIP
 from transformers import CLIPProcessor
 import numpy as np
 import os

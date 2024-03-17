@@ -2,7 +2,7 @@ import requests
 import streamlit as st
 
 def send_csv_file(file_path):
-    url = 'http://118.67.135.82:30007/proxy/products-upload'  
+    url = 'http://0.0.0.0:30009/proxy/products-upload'  
     files = {'file': open(file_path, 'rb')}  
 
     try:

@@ -8,7 +8,7 @@ build_router = APIRouter(
     tags=["Build"]
 )
 
-build = BuildModel(config_path="../config.yaml")
+build = BuildModel(config_path="config.yaml")
 
 @build_router.post("/make-pickle")
 async def make_pickle(parm: BuildParam) -> dict:
