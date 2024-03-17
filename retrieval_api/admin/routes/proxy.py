@@ -10,7 +10,7 @@ proxy_router = APIRouter(
 )
 
 build_client = BuildClient()
-meta_client = MetaClient(collection_name="products", config_path="../config.yaml")
+meta_client = MetaClient(collection_name="products", config_path="config.yaml")
 
 @proxy_router.post('/products-upload')
 async def upload(file: UploadFile = File(...)):

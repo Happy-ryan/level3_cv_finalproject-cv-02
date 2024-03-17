@@ -23,7 +23,7 @@ from pprint import pprint
 import hashlib
 
 import yaml
-with open('../config.yaml') as f:
+with open('config.yaml') as f:
     config = yaml.load(f, Loader=yaml.FullLoader)
     
 proxy_router = APIRouter(
@@ -32,9 +32,9 @@ proxy_router = APIRouter(
 
 embedding_client = EmbeddingClient()
 search_client = SearchClient()
-storage_client = LocalStorageClient("queries", config_path="../config.yaml")
-meta_client = MetaClient("products", config_path="../config.yaml")
-translate_client = GoogleTranslateClient(config_path="../config.yaml")
+storage_client = LocalStorageClient("queries", config_path="config.yaml")
+meta_client = MetaClient("products", config_path="config.yaml")
+translate_client = GoogleTranslateClient(config_path="config.yaml")
 
 
 @proxy_router.post("/search-by-image")
