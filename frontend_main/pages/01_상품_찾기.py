@@ -156,12 +156,14 @@ def retrieval(mode: str = 'image'):
         if  st.session_state['choose_idx'] is not None:
             choose_data = st.session_state.clothes_metadata[st.session_state['choose_idx']]
 
-            container = st.container()
-            st.markdown(bg_container, unsafe_allow_html=True)
-            with container.container():
+            with st.container():
                 col1, col2 = st.columns(2)
-                with col1: st.markdown(f"**{st.session_state['choose_idx'] + 1}번 상품명**  \n{choose_data['name']}")
-                with col2: st.markdown(f"**가격**  \n{choose_data['price']}")
+                with col1: 
+                    st.write(f"{st.session_state['choose_idx'] + 1}번 상품명")
+                    st.write(f"{choose_data['name']}")
+                with col2:
+                    st.write(f"가격")
+                    st.write(f"{choose_data['price']}")
                 
                 if choose_data['meta'] == "0":
                     st.write("")
